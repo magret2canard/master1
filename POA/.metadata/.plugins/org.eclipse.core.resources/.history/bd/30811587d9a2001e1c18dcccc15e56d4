@@ -1,0 +1,23 @@
+package formes;
+
+import java.awt.Color;
+
+public class FormesColoreesImpl implements FormesColorees{
+	private Color fond;
+	private Color encre;
+	private Formes forme;
+	
+	public FormesColoreesImpl(Formes forme, Color fond, Color encre){
+		this.forme =  forme;
+		this.fond = fond;
+		this.encre = encre;
+	}
+	
+	public Color couleurFond(){
+		return fond;
+	}
+	
+	public Color couleurEncre(){
+		return encre;
+	}
+}

@@ -1,0 +1,26 @@
+what,kind,bundleId,bundleVersion,description,time
+started,bundle,org.eclipse.wst.xml.core,1.1.400.v200904300540,"org.eclipse.wst.xml.core",1252506002397
+os,sysinfo,,,"linux",1252506002401
+arch,sysinfo,,,"x86",1252506002401
+ws,sysinfo,,,"gtk",1252506002401
+locale,sysinfo,,,"fr_FR",1252506002401
+processors,sysinfo,,,"2",1252506002402
+java.runtime.name,sysinfo,,,"Java(TM) SE Runtime Environment",1252506002402
+java.runtime.version,sysinfo,,,"1.6.0_14-b08",1252506002402
+java.specification.name,sysinfo,,,"Java Platform API Specification",1252506002402
+java.specification.vendor,sysinfo,,,"Sun Microsystems Inc.",1252506002402
+java.specification.version,sysinfo,,,"1.6",1252506002402
+java.vendor,sysinfo,,,"Sun Microsystems Inc.",1252506002402
+java.version,sysinfo,,,"1.6.0_14",1252506002402
+java.vm.info,sysinfo,,,"mixed mode, sharing",1252506002402
+java.vm.name,sysinfo,,,"Java HotSpot(TM) Client VM",1252506002402
+java.vm.specification.name,sysinfo,,,"Java Virtual Machine Specification",1252506002402
+java.vm.specification.vendor,sysinfo,,,"Sun Microsystems Inc.",1252506002402
+java.vm.specification.version,sysinfo,,,"1.0",1252506002402
+java.vm.vendor,sysinfo,,,"Sun Microsystems Inc.",1252506002402
+java.vm.version,sysinfo,,,"14.0-b16",1252506002402
+started,bundle,org.eclipse.equinox.p2.ui.sdk.scheduler,1.0.0.v20090520-1905,"org.eclipse.equinox.p2.ui.sdk.scheduler",1252506002486
+started,bundle,org.eclipse.mylyn.commons.net,3.2.0.v20090617-0100-e3x,"org.eclipse.mylyn.commons.net",1252506002574
+started,bundle,org.eclipse.mylyn.commons.ui,3.2.0.v20090617-0100-e3x,"org.eclipse.mylyn.commons.ui",1252506002687
+started,bundle,org.eclipse.mylyn.bugzilla.core,3.2.0.v20090617-0100-e3x,"org.eclipse.mylyn.bugzilla.core",1252506002802
+started,bundle,org.eclipse.mylyn.bugzilla.ui,3.2.0.v20090617-0100-e3x,"org.eclipse.mylyn.bugzilla.ui",1252506002858

@@ -1,0 +1,7 @@
+package formes;
+
+
+public abstract class DecorateurDeFormes extends FormesAbstraites {
+	protected Formes forme;
+	
+}

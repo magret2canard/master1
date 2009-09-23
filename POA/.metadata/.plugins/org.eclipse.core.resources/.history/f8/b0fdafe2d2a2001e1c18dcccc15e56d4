@@ -1,0 +1,7 @@
+package formes;
+
+import java.awt.Color;
+
+public abstract class DecorateurDeFormes extends FormesAbstraites {
+
+}
