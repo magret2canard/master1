@@ -1,0 +1,23 @@
+Require Import List.
+Fixpoint list_n (n : nat) := match n with 0 => nil | S p => cons n (list_n p)  end.
+Definition cree_list_n (n : nat) := rev (list_n n).
+Eval compute in cree_list_n 6.
+Require Import ZArith.
+Open Scope Z_scope.
+
+
+Definition iterative_fact (n:Z) := iter  n (Z*Z) (fun p => match p with (i,f)=>(i+1,f*(i+1))
+                          end) (0,1).
+
+Definition creer_l (n : nat) := iter n (Z*Z) (fun x => match x with n => (cons x l)end) (0, nil).
+
+Definition creer_l (n : Z) (l : list Z) := iter n Z cons 1 l.
+
+
+Definition cons_aux (n : nat) := snd .
+
+Fixpoint list_n (n : nat) := match n with 0 => nil | S p => cons n (list_n p)  end.
+Eval compute in list_n 10.
+
+Eval compute in cons 4 (cons 5 nil).
+Definition creer_list_n (n : Z) := iter n Z cons nil.

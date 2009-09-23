@@ -1,0 +1,10 @@
+package formes;
+
+import java.awt.Color;
+
+public class FormesColorees extends DecorateurDeFormes{
+	private Color fond;
+	private Color encre;
+	
+	
+}
