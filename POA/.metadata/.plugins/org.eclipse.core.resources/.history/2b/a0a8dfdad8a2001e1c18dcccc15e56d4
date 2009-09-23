@@ -1,8 +1,0 @@
-package formes;
-
-import java.awt.Color;
-
-public class FormesColoreesImpl implements FormesColorees{
-	public Color couleurFond();
-	public Color couleurEncre();
-}
