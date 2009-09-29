@@ -148,10 +148,25 @@ Section propositional_logic.
 
  Lemma and_assoc : P /\ (Q /\ R) -> (P /\ Q) /\ R.
  Proof.
- Admitted.
+ intros H.
+ destruct H.
+ destruct H0.
+ split.
+ split.
+ assumption.
+ assumption.
+ assumption.
+ Qed.
 
  Lemma and_imp_dist : (P -> Q) /\ (R -> S) -> P /\ R -> Q /\ S.
  Proof.
+ intros H.
+ destruct H.
+ split.
+ apply H.
+ apply H1.
+ apply H0.
+ apply H.
  Admitted.
 
  Lemma not_contrad :  ~(P /\ ~P).
