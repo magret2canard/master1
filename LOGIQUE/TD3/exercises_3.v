@@ -166,29 +166,66 @@ Section propositional_logic.
  apply H.
  apply H1.
  apply H0.
- apply H.
- Admitted.
+ apply H1.
+ Qed.
 
  Lemma not_contrad :  ~(P /\ ~P).
  Proof.
- Admitted.
+ intros H.
+ destruct H.
+ destruct H0.
+ apply H.
+ Qed.
 
  Lemma or_and_not : (P \/ Q) /\ ~P -> Q.
  Proof.
- Admitted.
+ intros H.
+ destruct H.
+ destruct H.
+ destruct H0.
+ apply H.
+ apply H.
+ Qed.
 
 
  Lemma not_not_exm : ~ ~ (P \/ ~ P).
- Proof.
- Admitted.
+ intros H.
+ apply H.
+ right.
+ intros H0.
+ apply H.
+ left.
+ apply H0.
+ Qed.
+ 
 
  Lemma de_morgan_1 : ~(P \/ Q) -> ~P /\ ~Q.
  Proof.
- Admitted.
+ intros H.
+ split.
+ intros H0.
+ apply H.
+ left.
+ apply H0.
+ intros H1.
+ apply H.
+ right.
+ apply H1.
+ Qed.
+
 
  Lemma de_morgan_2 : ~P /\ ~Q -> ~(P \/ Q).
  Proof.
- Admitted.
+ intro H.
+ intro H0.
+ destruct H.
+ destruct H0.
+ apply H.
+ apply H0.
+ apply H1.
+ apply H0.
+ Qed.
+
 
  Lemma de_morgan_3 : ~P \/ ~Q -> ~(P /\ Q).
  Proof.
