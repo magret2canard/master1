@@ -50,29 +50,24 @@ Section Minimal_propositioal_logic.
 
  Lemma id_P : P -> P.
  Proof.
- intros H.
- assumption.
+ tauto.
  Qed.
  
 
  Lemma id_PP : (P -> P) -> P -> P.
  Proof.
- intros H.
- assumption.
+ tauto.
  Qed.
  
  Lemma imp_trans : (P -> Q) -> (Q -> R) -> P -> R.
  Proof.
- intros H.
- intros H0.
- intros H1.
- apply H0.
- apply H.
- assumption.
+ tauto.
  Qed.
+
 
  Lemma imp_perm : (P -> Q -> R) -> Q -> P -> R.
  Proof.
+ tauto.
  intros H.
  intros H0.
  intros H1.

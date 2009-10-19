@@ -50,9 +50,9 @@ Eval compute in iter 10 Z (fun i => 2* i) 1.
 
 Definition iota (n:Z) :=
  snd(
-  iter n  (Z * (list Z)) (fun p => match p with (last, l) => (last-1, last::l)
-                                   end)
-          (n,nil)).
+  iter n  (Z * (list Z)) 
+	(fun p => match p with (last, l) => (last-1, last::l) end)
+        (n,nil)).
 
 Eval compute in (iota 4).
 
