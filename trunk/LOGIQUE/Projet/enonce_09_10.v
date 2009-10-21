@@ -97,28 +97,63 @@ Eval compute in tree_mirror tree_example.
 (* 1- definir une fonction is_leaf qui retourne true si un arbre est une feuille
                                                 false sinon *)
 
-(* Vous devrez ensuite prouver le lemme suivant 
+Definition is_leaf {A: Type}(t: btree A) : bool :=
+   match t with
+      leaf => true
+    | _ => false end.
 
+Eval compute in is_leaf tree_example.
+
+(* Vous devrez ensuite prouver le lemme suivant *)
 
 
 Lemma leaf_is_leaf : forall (A:Type)(t: btree A), 
    is_leaf t = true <-> t = leaf.
 Proof.
-Admitted.
+induction t.
+split.
+unfold is_leaf.
+trivial.
+unfold is_leaf.
+trivial.
+split.
+unfold is_leaf.
+intros.
+discriminate.
+intros.
+unfold is_leaf.
+discriminate.
+Qed.
 
-*)
+
 
 (* 2- Prouver les lemmes suivants *)
 
 Lemma mirror_mirror : forall (A:Type)(t: btree A),
     tree_mirror (tree_mirror t) = t.
 Proof.
-Admitted.
+induction t.
+unfold tree_mirror.
+trivial.
+symmetry.
+simpl.
+rewrite IHt1.
+rewrite IHt2.
+trivial.
+Qed.
 
 Lemma mirror_size : forall (A:Type)(t: btree A),
     tree_size (tree_mirror t) = tree_size t.
 Proof.
-Admitted.
+induction t.
+simpl.
+trivial.
+simpl.
+rewrite IHt1.
+rewrite IHt2.
+rewrite plus_comm.
+trivial.
+Qed.
 
 
 (* 3- On definit les fonctions number_of_bin et number_of_leaves *)
@@ -138,7 +173,17 @@ Fixpoint  number_of_leaves {A:Type} (t : btree A) : nat :=
 Lemma bin_n_leaves : forall (A:Type)(t: btree A), 
             number_of_leaves t = S (number_of_bin t).
 Proof.
-Admitted.
+induction t.
+unfold number_of_leaves.
+trivial.
+simpl.
+rewrite IHt1.
+rewrite IHt2.
+rewrite plus_n_Sm.
+simpl.
+trivial.
+Qed.
+
 
 
 
@@ -154,6 +199,35 @@ Fixpoint tree_to_list {A:Type}(t: btree A) : list A :=
 Lemma tree_to_list_length :  forall A (t:btree A),  
     length (tree_to_list t) = number_of_bin t.
 Proof.
+induction t.
+unfold number_of_bin.
+unfold tree_to_list.
+trivial.
+simpl.
+
+symmetry in IHt1.
+symmetry in IHt2.
+rewrite IHt1.
+rewrite IHt2.
+rewrite plus_n_Sm.
+symmetry.
+destruct IHt1.
+destruct IHt2.
+rewrite plus_n_Sm.
+unfold tree_to_list.
+simpl.
+rewrite plus_Sn_m.
+simpl.
+unfold tree_to_list.
+rewrite IHt2.
+unfold length.
+simpl.
+
+simpl.
+unfold number_of_bin.
+simpl.
+unfold
+rewrite IHt1.
 Admitted.
 
 

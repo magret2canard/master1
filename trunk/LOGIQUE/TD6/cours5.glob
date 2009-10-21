@@ -1,0 +1,316 @@
+Fcours5
+R96 Coq.Arith.Arith <> <> lib
+R118 Coq.setoid_ring.ArithRing <> <> lib
+R144 Coq.Lists.List <> <> lib
+def 160 <> Le
+R168 Coq.Init.Datatypes <> nat ind
+R175 Coq.Init.Datatypes <> bool ind
+R201 Coq.Init.Datatypes "" not
+R208 Coq.Init.Datatypes <> true constr
+R231 Coq.Init.Datatypes <> S constr
+R236 Coq.Init.Datatypes <> S constr
+R243 cours5 <> Le def
+R277 Coq.Init.Datatypes <> false constr
+R309 cours5 <> Le def
+R315 Coq.Init.Datatypes "" not
+R312 Coq.Init.Datatypes "" not
+R335 cours5 <> Le def
+R341 Coq.Init.Datatypes "" not
+R338 Coq.Init.Datatypes "" not
+def 358 <> max
+R372 cours5 <> Le def
+def 405 <> min
+R419 cours5 <> Le def
+R458 cours5 <> max def
+R468 Coq.Init.Peano "n + m" not
+R466 Coq.Init.Datatypes "" not
+R469 Coq.Init.Datatypes "" not
+R462 Coq.Init.Datatypes "" not
+def 484 <> sum
+R491 Coq.Init.Datatypes <> nat ind
+R498 Coq.Init.Datatypes <> nat ind
+R521 Coq.Init.Datatypes "" not
+R526 Coq.Init.Datatypes "" not
+R545 Coq.Init.Datatypes <> S constr
+R554 Coq.Init.Peano "n + m" not
+R556 cours5 <> sum def
+R585 cours5 <> sum def
+R589 Coq.Init.Datatypes "" not
+R633 Coq.Lists.List <> <> lib
+def 650 <> length
+R669 Coq.Lists.List <> list ind
+R678 Coq.Init.Datatypes <> nat ind
+R699 Coq.Lists.List <> nil constr
+R706 Coq.Init.Datatypes "" not
+R723 Coq.Lists.List "x :: y" not
+R731 Coq.Init.Datatypes <> S constr
+R734 cours5 <> length def
+def 761 <> app
+R779 Coq.Lists.List <> list ind
+R789 Coq.Lists.List <> list ind
+R812 Coq.Lists.List <> nil constr
+R837 Coq.Lists.List "x :: y" not
+R847 Coq.Lists.List "x :: y" not
+R850 cours5 <> app def
+R888 cours5 <> app def
+R922 cours5 <> app def
+R955 cours5 <> app def
+R976 Coq.Lists.List "x :: y" not
+R975 Coq.Init.Datatypes "" not
+R979 Coq.Lists.List "x :: y" not
+R978 Coq.Init.Datatypes "" not
+R982 Coq.Lists.List "x :: y" not
+R981 Coq.Init.Datatypes "" not
+R984 Coq.Lists.List <> nil constr
+R961 Coq.Lists.List "x :: y" not
+R960 Coq.Init.Datatypes "" not
+R964 Coq.Lists.List "x :: y" not
+R963 Coq.Init.Datatypes "" not
+R967 Coq.Lists.List "x :: y" not
+R966 Coq.Init.Datatypes "" not
+R969 Coq.Lists.List <> nil constr
+R1021 cours5 <> app def
+R1011 Coq.Lists.List <> list ind
+def 1040 <> rev
+R1055 Coq.Lists.List <> list ind
+R1080 Coq.Lists.List <> nil constr
+R1087 Coq.Lists.List <> nil constr
+R1107 Coq.Lists.List "x :: y" not
+R1123 cours5 "l ++ l'" not
+R1116 cours5 <> rev def
+R1128 Coq.Lists.List "x :: y" not
+R1130 Coq.Lists.List <> nil constr
+prf 1186 <> Le_n
+R1210 Coq.Init.Logic "x = y" not
+R1203 cours5 <> Le def
+R1212 Coq.Init.Datatypes <> true constr
+prf 1277 <> max_n
+R1303 Coq.Init.Logic "x = y" not
+R1295 cours5 <> max def
+R1345 cours5 <> Le_n thm
+R1345 cours5 <> Le_n thm
+prf 1374 <> length_app
+R1428 Coq.Init.Logic "x = y" not
+R1411 cours5 <> length def
+R1421 cours5 "l ++ l'" not
+R1482 Coq.Init.Peano "n + m" not
+R1473 cours5 <> length def
+R1484 cours5 <> length def
+R1402 Coq.Lists.List <> list ind
+R1402 Coq.Lists.List <> list ind
+prf 1587 <> length_rev
+R1636 Coq.Init.Logic "x = y" not
+R1621 cours5 <> length def
+R1629 cours5 <> rev def
+R1638 cours5 <> length def
+R1612 Coq.Lists.List <> list ind
+prf 1688 <> app_assoc
+R1746 Coq.Init.Logic "x = y" not
+R1740 cours5 "l ++ l'" not
+R1736 cours5 "l ++ l'" not
+R1749 cours5 "l ++ l'" not
+R1754 cours5 "l ++ l'" not
+R1725 Coq.Lists.List <> list ind
+R1725 Coq.Lists.List <> list ind
+R1725 Coq.Lists.List <> list ind
+prf 1837 <> rev_rev
+R1887 Coq.Init.Logic "x = y" not
+R1875 cours5 <> rev def
+R1880 cours5 <> rev def
+R1866 Coq.Lists.List <> list ind
+prf 1948 <> rev_app
+R2002 Coq.Init.Logic "x = y" not
+R1989 cours5 <> rev def
+R1996 cours5 "l ++ l'" not
+R2010 cours5 "l ++ l'" not
+R2003 cours5 <> rev def
+R2013 cours5 <> rev def
+R1980 Coq.Lists.List <> list ind
+R1980 Coq.Lists.List <> list ind
+R2099 cours5 <> rev def
+R2099 cours5 <> rev def
+prf 2241 <> app_l_nil
+R2287 Coq.Init.Logic "x = y" not
+R2281 cours5 "l ++ l'" not
+R2283 Coq.Lists.List <> nil constr
+R2271 Coq.Lists.List <> list ind
+R2375 cours5 <> app_l_nil thm
+R2375 cours5 <> app_l_nil thm
+R2433 cours5 <> app_assoc prfax
+R2433 cours5 <> app_assoc prfax
+R2466 cours5 <> rev_app thm
+R2466 cours5 <> rev_app thm
+R2520 cours5 <> rev def
+prf 2579 <> max_min
+R2624 Coq.Init.Logic "x = y" not
+R2616 cours5 <> min def
+R2609 Coq.Init.Logic "x = y" not
+R2601 cours5 <> max def
+R2676 cours5 <> Le def
+R2676 cours5 <> Le def
+prf 2732 <> max_min'
+R2778 Coq.Init.Logic "x = y" not
+R2770 cours5 <> min def
+R2763 Coq.Init.Logic "x = y" not
+R2755 cours5 <> max def
+R2827 cours5 <> Le def
+R2827 cours5 <> Le def
+prf 2905 <> max_min''
+R2952 Coq.Init.Logic "x = y" not
+R2944 cours5 <> min def
+R2937 Coq.Init.Logic "x = y" not
+R2929 cours5 <> max def
+R3025 cours5 <> Le def
+R3025 cours5 <> Le def
+prf 3104 <> Le_Sn_Sp
+R3142 Coq.Init.Logic "x = y" not
+R3127 cours5 <> Le def
+R3137 Coq.Init.Datatypes <> S constr
+R3131 Coq.Init.Datatypes <> S constr
+R3144 cours5 <> Le def
+prf 3359 <> Le_S
+R3406 Coq.Init.Logic "x = y" not
+R3395 cours5 <> Le def
+R3401 Coq.Init.Datatypes <> S constr
+R3408 Coq.Init.Datatypes <> true constr
+R3385 Coq.Init.Logic "x = y" not
+R3378 cours5 <> Le def
+R3387 Coq.Init.Datatypes <> true constr
+prf 3508 <> Le_antisym
+R3569 Coq.Init.Logic "x = y" not
+R3557 Coq.Init.Logic "x = y" not
+R3550 cours5 <> Le def
+R3559 Coq.Init.Datatypes <> true constr
+R3540 Coq.Init.Logic "x = y" not
+R3533 cours5 <> Le def
+R3542 Coq.Init.Datatypes <> true constr
+prf 3615 <> Le_trans
+R3718 Coq.Init.Logic "x = y" not
+R3711 cours5 <> Le def
+R3720 Coq.Init.Datatypes <> true constr
+R3666 Coq.Init.Logic "x = y" not
+R3659 cours5 <> Le def
+R3668 Coq.Init.Datatypes <> true constr
+R3649 Coq.Init.Logic "x = y" not
+R3642 cours5 <> Le def
+R3651 Coq.Init.Datatypes <> true constr
+def 3772 <> LE
+R3788 Coq.Init.Logic "'exists' x : t , p" not
+R3806 Coq.Init.Logic "x = y" not
+R3803 Coq.Init.Peano "n + m" not
+R3797 Coq.Init.Datatypes <> nat ind
+R3780 Coq.Init.Datatypes <> nat ind
+R3780 Coq.Init.Datatypes <> nat ind
+prf 3817 <> Le_LE
+R3852 cours5 <> LE def
+R3843 Coq.Init.Logic "x = y" not
+R3837 cours5 <> Le def
+R3844 Coq.Init.Datatypes <> true constr
+R3907 Coq.Init.Datatypes "" not
+R3907 Coq.Init.Datatypes "" not
+R3924 Coq.Init.Datatypes <> S constr
+R3924 Coq.Init.Datatypes <> S constr
+R4005 Coq.Arith.Plus <> plus_comm thm
+R4005 Coq.Arith.Plus <> plus_comm thm
+R4031 Coq.Arith.Plus <> plus_comm thm
+R4031 Coq.Arith.Plus <> plus_comm thm
+prf 4059 <> LE_Le
+R4096 Coq.Init.Logic "x = y" not
+R4089 cours5 <> Le def
+R4098 Coq.Init.Datatypes <> true constr
+R4079 cours5 <> LE def
+R4193 cours5 <> Le_n thm
+R4193 cours5 <> Le_n thm
+R4346 cours5 <> Le_n thm
+R4346 cours5 <> Le_n thm
+R4462 cours5 <> Le_S thm
+R4462 cours5 <> Le_S thm
+prf 4527 <> Le_eq_LE
+R4564 Coq.Init.Logic "A <-> B" not
+R4557 Coq.Init.Logic "x = y" not
+R4550 cours5 <> Le def
+R4559 Coq.Init.Datatypes <> true constr
+R4568 cours5 <> LE def
+R4617 cours5 <> Le_LE thm
+R4631 cours5 <> LE_Le thm
+R4617 cours5 <> Le_LE thm
+R4631 cours5 <> LE_Le thm
+R4661 cours5 <> LE def
+R4666 Coq.Init.Datatypes "" not
+R4664 Coq.Init.Datatypes "" not
+R4682 cours5 <> Le_eq_LE thm
+R4682 cours5 <> Le_eq_LE thm
+def 4719 <> fast_rev_aux
+R4742 Coq.Lists.List <> list ind
+R4752 Coq.Lists.List <> list ind
+R4777 Coq.Lists.List <> nil constr
+R4803 Coq.Lists.List "x :: y" not
+R4811 cours5 <> fast_rev_aux def
+R4829 Coq.Lists.List "x :: y" not
+def 4853 <> fast_rev
+R4884 cours5 <> fast_rev_aux def
+R4899 Coq.Lists.List <> nil constr
+R4873 Coq.Lists.List <> list ind
+prf 4911 <> fast_rev_ok
+R4953 Coq.Init.Logic "x = y" not
+R4947 cours5 <> rev def
+R4955 cours5 <> fast_rev def
+R4938 Coq.Lists.List <> list ind
+R5191 cours5 <> rev def
+R5210 cours5 "l ++ l'" not
+R5204 cours5 <> rev def
+R5213 Coq.Lists.List <> nil constr
+R5191 cours5 <> rev def
+R5210 cours5 "l ++ l'" not
+R5204 cours5 <> rev def
+R5213 Coq.Lists.List <> nil constr
+R5235 Coq.Lists.List <> nil constr
+R5235 Coq.Lists.List <> nil constr
+R5277 cours5 <> app_l_nil thm
+R5277 cours5 <> app_l_nil thm
+sec 5369 <> A_declared
+var 5391 A_declared A
+var 5408 A_declared eq_b
+R5425 Coq.Init.Datatypes <> bool ind
+def 5441 <> nth
+R5448 Coq.Init.Datatypes <> nat ind
+R5455 Coq.Lists.List <> list ind
+R5465 Coq.Init.Datatypes <> option ind
+R5496 Coq.Lists.List <> nil constr
+R5503 Coq.Init.Datatypes <> None constr
+R5525 Coq.Init.Datatypes "" not
+R5529 Coq.Lists.List "x :: y" not
+R5537 Coq.Init.Datatypes <> Some constr
+R5561 Coq.Init.Datatypes <> S constr
+R5567 Coq.Lists.List "x :: y" not
+R5575 cours5 <> nth def
+def 5600 <> mem
+R5612 Coq.Lists.List <> list ind
+R5622 Coq.Init.Datatypes <> bool ind
+R5645 Coq.Lists.List <> nil constr
+R5652 Coq.Init.Datatypes <> false constr
+R5674 Coq.Lists.List "x :: y" not
+R5709 cours5 <> mem def
+R5699 Coq.Init.Datatypes <> true constr
+prf 5768 <> mem_ok_1
+R5889 Coq.Init.Logic "x = y" not
+R5880 cours5 <> mem def
+R5891 Coq.Init.Datatypes <> true constr
+R5819 Coq.Init.Logic "x = y" not
+R5811 cours5 <> nth def
+R5821 Coq.Init.Datatypes <> Some constr
+R5802 Coq.Lists.List <> list ind
+R5795 Coq.Init.Datatypes <> nat ind
+R6146 cours5 A_declared <> sec
+R6177 cours5 <> nth def
+R6205 cours5 <> mem def
+R6233 cours5 <> mem def
+R6249 Coq.Lists.List "x :: y" not
+R6248 Coq.Init.Datatypes "" not
+R6252 Coq.Lists.List "x :: y" not
+R6251 Coq.Init.Datatypes "" not
+R6256 Coq.Lists.List "x :: y" not
+R6254 Coq.Init.Datatypes "" not
+R6258 Coq.Lists.List <> nil constr
+R6245 Coq.Init.Datatypes "" not
+R6237 Coq.Arith.EqNat <> beq_nat def
