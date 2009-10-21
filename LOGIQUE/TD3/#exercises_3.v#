@@ -50,24 +50,29 @@ Section Minimal_propositioal_logic.
 
  Lemma id_P : P -> P.
  Proof.
- tauto.
+ intros H.
+ assumption.
  Qed.
  
 
  Lemma id_PP : (P -> P) -> P -> P.
  Proof.
- tauto.
+ intros H.
+ assumption.
  Qed.
  
  Lemma imp_trans : (P -> Q) -> (Q -> R) -> P -> R.
  Proof.
- tauto.
+ intros H.
+ intros H0.
+ intros H1.
+ apply H0.
+ apply H.
+ assumption.
  Qed.
-
 
  Lemma imp_perm : (P -> Q -> R) -> Q -> P -> R.
  Proof.
- tauto.
  intros H.
  intros H0.
  intros H1.
@@ -105,27 +110,12 @@ Section Minimal_propositioal_logic.
 
  Lemma diamond : (P -> Q) -> (P -> R) -> (Q -> R -> S) -> P -> S.
  Proof.
- intros H.
- intros H0.
- intros H1.
- intros H2.
- apply H1.
- apply H.
- apply H2.
- apply H0.
- apply H2.
+tauto.
  Qed.
 
  Lemma weak_peirce : ((((P -> Q) -> P) -> P) -> Q) -> Q.
  Proof.
- intros H.
- apply H.
- intros H0.
- apply H0.
- intros H1.
- apply H.
- intros H2.
- apply H1.
+ tauto.
  Qed.
 
 End Minimal_propositioal_logic.
@@ -156,13 +146,7 @@ Section propositional_logic.
 
  Lemma and_imp_dist : (P -> Q) /\ (R -> S) -> P /\ R -> Q /\ S.
  Proof.
- intros H.
- destruct H.
- split.
- apply H.
- apply H1.
- apply H0.
- apply H1.
+	tauto.
  Qed.
 
  Lemma not_contrad :  ~(P /\ ~P).

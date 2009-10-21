@@ -105,10 +105,10 @@ Qed.
 
 Lemma Le_n_0 : forall n, n <= 0 -> n = 0.
 Proof.
- intros n H;induction H.
+(*itros n H;induction H.
 auto.
-(* ????? *)
-Restart.
+ ????? 
+Restart.*)
 intros n H;inversion H.
 trivial.
 Qed.
@@ -148,13 +148,13 @@ Qed.
 
 Lemma lt_irrefl : forall n, ~ n < n.
 Proof.
- unfold not; intros n H.
+ (*fold not; intros n H.
  (* 
  induction H 
  *)
  (* inversion H.
  *)
- Restart.
+ Restart.*)
  unfold not, lt;induction n.
  intro.
  inversion H.
@@ -231,12 +231,16 @@ Proof.
  right;trivial.
 Qed.
 
-(* TD n° 6 *)
+(* TD nÂ° 6 *)
 
 
 Lemma prefix_of_nil : forall A (l:list A), prefix l nil -> l = nil. 
 Proof.
-Admitted.
+intros.
+inversion H.
+trivial.
+Qed.
+
 
 
 Lemma prefix_trans : forall A (l l1 l2:list A), prefix l l1 -> 
@@ -245,7 +249,14 @@ Lemma prefix_trans : forall A (l l1 l2:list A), prefix l l1 ->
 Proof.
  intros A l l1 l2 H. 
  generalize l2;induction H.
-Admitted.
+ intros.
+ left.
+ intros.
+ inversion H0.
+ right.
+ apply IHprefix.
+ assumption.
+Qed.
 
 Lemma prefix_cons_inv : forall (A:Type)(a:A) l l', 
                 prefix (a::l) (a::l') -> prefix l l'.
@@ -255,6 +266,16 @@ Qed.
 
 Lemma prefix_app : forall A (l l': list A), prefix l (l++l').
 Proof.
+intros.
+induction l.
+left.
+simpl.
+constructor 2.
+assumption.
+Qed.
+
+
+
 Admitted.
 
 Lemma app_prefix : forall A (l l': list A), prefix l l' -> 
