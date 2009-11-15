@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-public class DeterministicAutomaton {
+public class DeterministicAutomaton <T> {
 
 	private State initialState = null;
 
@@ -17,22 +17,22 @@ public class DeterministicAutomaton {
 	 * 
 	 */
 	
-	private final Map<State, Map<Object, Transition>> transitions;
+	private final Map<State, Map<T, Transition<T>>> Transitions;
 
 
 	
-	public DeterministicAutomaton(Transition... transitions) throws NotDeterministicTransitionException, 
+	public DeterministicAutomaton(Transition<T>... Transitions) throws NotDeterministicTransitionException, 
 																	UnknownInitialStateException, 
 																	NotDeterministicInitalStateException 
 	{
-		this.transitions = new HashMap<State, Map<Object, Transition>>();
-		for (Transition t : transitions) {
+		this.Transitions = new HashMap<State, Map<T, Transition<T>>>();
+		for (Transition<T> t : Transitions) {
 			addState(t.source());
 			addState(t.target());
-			Map<Object, Transition> map = this.transitions.get(t.source());
+			Map<T, Transition<T>> map = this.Transitions.get(t.source());
 			
-			//On regarde si la transition existe déjà dans notre automate
-			if(transition(t.source(), t.label()) != null)  
+			//On regarde si la Transition existe déjà dans notre automate
+			if(Transition(t.source(), t.label()) != null)  
 				throw new NotDeterministicTransitionException(t);
 			
 			map.put(t.label(), t);
@@ -44,8 +44,8 @@ public class DeterministicAutomaton {
 	
 
 	protected final void addState(State e) throws NotDeterministicInitalStateException {
-		if (!transitions.containsKey(e)) {
-			transitions.put(e, new HashMap<Object, Transition>());
+		if (!Transitions.containsKey(e)) {
+			Transitions.put(e, new HashMap<T, Transition<T>>());
 			if (e.initial()) {
 				if (initialState == null) {
 					initialState = e;
@@ -60,11 +60,11 @@ public class DeterministicAutomaton {
 		return initialState;
 	}
 	
-	public Transition transition(State s, Object label){
-		if(! transitions.containsKey(s))
+	public Transition<T> Transition(State s, T label) throws NoSuchElementException{
+		if(! Transitions.containsKey(s))
 			throw new NoSuchElementException();
 		else{
-			Map<Object, Transition> map = transitions.get(s);
+			Map<T, Transition<T>> map = Transitions.get(s);
 			if(map.containsKey(label))
 				return map.get(label);
 			else
@@ -72,35 +72,25 @@ public class DeterministicAutomaton {
 		}
 	}
 	
-	public State changementEtat(Transition t){
+	public State changementEtat(Transition<T> t){
 		return t.target();
 	}
 	
-	public boolean recognize(Iterator<Object> word){
+	public boolean recognize(Iterator<T> word){
 		State s =  initialState();	
-		Transition t;	
+		Transition<T> t;	
 		while(word.hasNext()){
-			Object letter = word.next();
-			//System.out.println(letter);
-			t = transition(s, letter);
+			T letter = word.next();
+			t = Transition(s, letter);
 			if(t == null)
 				return false;
 			else
-				s = changementEtat(t); //s = t.target();
+				s = changementEtat(t);
 		}
-		
-		/*for(Object letter : word){
-			t = transition(s, letter);
-			if(t == null)
-				return false;
-			else
-				s = changementEtat(t); //s = t.target();
-			
-		}*/
 		return s.terminal();
 	}
 	
-	public boolean recognize(Object [] word){
+	public boolean recognize(T [] word){
 		return recognize(Arrays.asList(word).iterator());
 	}
 	

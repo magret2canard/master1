@@ -2,10 +2,7 @@ package Forme;
 
 import java.awt.geom.Point2D;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class TestForme {
 

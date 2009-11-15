@@ -3,13 +3,13 @@ package automaton;
 public class NotDeterministicTransitionException extends Exception{
 	private static final long serialVersionUID = 1L;
 	
-	private Transition t;
+	private Transition<?> t;
 	
-	public NotDeterministicTransitionException(Transition t){
+	public NotDeterministicTransitionException(Transition<?> t){
 		this.t = t;
 	}
 	
-	public Transition transition(){
+	public Transition<?> transition(){
 		return t;
 	}
 	

@@ -1,10 +1,10 @@
 package automaton;
 
-public interface Transition {
+public interface Transition <T> {
 
 	public State source();
 
 	public State target();
 
-	public Object label();
+	public T label();
 }
