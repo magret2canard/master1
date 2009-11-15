@@ -1,11 +1,11 @@
 package automaton;
 
-public class TransitionImpl implements Transition {
-	private Object label;
+public class  TransitionImpl <T> implements Transition <T> {
+	private T label;
 	private State source;
 	private State target;
 	
-	public TransitionImpl(State source, State target, Object label){
+	public TransitionImpl (State source, State target, T label){
 		this.source = source;
 		this.target = target;
 		this.label = label;
@@ -18,7 +18,7 @@ public class TransitionImpl implements Transition {
 		return target;
 	}
 
-	public Object label(){
+	public T label(){
 		return label;
 	}
 

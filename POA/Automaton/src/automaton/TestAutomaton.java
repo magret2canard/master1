@@ -4,25 +4,27 @@ public class TestAutomaton {
 
 
 	 
+	@SuppressWarnings("unchecked")
+	
 	public static void main(String[] args){
-		char a = 'a';
-		char b = 'b';
+		String a = "a";
+		String b = "b";
 		
 		/* -------------------- Automate reconnaissant le langage a*b --------------------*/
 			
 		State etat_1 = new StateImpl(true, false);
 		State etat_2 = new StateImpl(false, true);
 		
-		Transition t1 = new TransitionImpl(etat_1, etat_1, a); //boucle: etat_1 ---a---> etat_1
-		Transition t2 = new TransitionImpl(etat_1, etat_2, b); //trans:  etat_1 ---b---> etat_2
+		Transition<String> t1 = new TransitionImpl <String>(etat_1, etat_1, a); //boucle: etat_1 ---a---> etat_1
+		Transition<String> t2 = new TransitionImpl <String>(etat_1, etat_2, b); //trans:  etat_1 ---b---> etat_2
 		
-		DeterministicAutomaton automate1 = null;
+		DeterministicAutomaton<String> automate1 = null;
 		
-		Object[] aaab = {a, a, a, b };
-		Object[] aaba = {a, a, b, a };
+		String[] aaab = {a, a, a, b };
+		String[] aaba = {a, a, b, a };
 		
 		try{
-			 automate1 = new DeterministicAutomaton(t1, t2);
+			 automate1 = new DeterministicAutomaton<String>(t1, t2);
 		}catch(Exception e){
 			System.out.println("Il y a une erreur "+e);
 		}
@@ -39,17 +41,26 @@ public class TestAutomaton {
 		State s1 = new StateImpl(true, true);
 		State s2 = new StateImpl(false, false);
 		
-		Transition t_a = new TransitionImpl(s1, s2, a);
-		Transition t_b = new TransitionImpl(s2, s1, b);
+		Transition<String> t_a = new TransitionImpl<String>(s1, s2, a);
+		Transition<String> t_b = new TransitionImpl<String>(s2, s1, b);
 		
-		DeterministicAutomaton automate2 = null;
+		DeterministicAutomaton<String> automate2 = null;
 		
-		Object[] ababab = {a, b, a, b, a, b };
-		Object[] aababb = {a, a, b, a, b, b };
+		String[] ababab = {a, b, a, b, a, b };
+		String[] aababb = {a, a, b, a, b, b };
 		
 		try{
-			 automate2 = new DeterministicAutomaton(t_a, t_b);
-		}catch(Exception e){
+			 automate2 = new DeterministicAutomaton <String>(t_a, t_b);
+		}catch(NotDeterministicInitalStateException e){
+			System.out.println(e);
+		}
+		catch(NotDeterministicTransitionException e){
+			System.out.println(e);
+		}
+		catch(UnknownInitialStateException e){
+			System.out.println(e);
+		}
+		catch(Exception e){
 			System.out.println("Il y a une erreur "+e);
 		}
 		
@@ -69,7 +80,7 @@ public class TestAutomaton {
 		return s.toString();
 	}
 	
-	 private static void  testRecognize(DeterministicAutomaton automate, Object[] mot){
+	 private static <T> void  testRecognize(DeterministicAutomaton<T> automate, T [] mot){
 		 System.out.print(ObjectTabtoString(mot)+" est ...");
 			if (automate.recognize(mot))
 				System.out.println(" reconnu !");
