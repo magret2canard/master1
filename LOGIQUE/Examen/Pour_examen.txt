@@ -1,0 +1,66 @@
+Préparation à la partie "Coq" de l'examen d'INF 471.
+---------------------------------------------------
+
+ Il ne vous sera évidemment pas demandé de donner des preuves complètes en
+  syntaxe Coq (sans l'aide d'un assistant à la démonstration), mais de :
+ 
+ 
+
+  a) savoir écrire des preuves simples (manipulation des connecteurs et 
+  quantificateurs  +   égalité)
+
+   b) savoir quel schéma d'induction appliquer dans quelle situation, et
+   expliquer  quels sont les sous-buts engendrés.
+
+   c) On ne demande pas de preuve complète, mais une indication des étapes 
+    principales.
+    On ne demande pas de résoudre complètement des sous-buts triviaux, mais 
+    d'expliquer  pourquoi ils sont faciles à résoudre :
+
+    exemple :
+
+    Soit le but :
+
+    A:Type
+    P : A -> Prop
+    R : A -> A -> Prop
+    a : A
+    b : A
+    H : forall x:A, (exists y:A, R x y) -> P x
+    H0 : R a b
+     ------------------------
+     P a
+
+    L'explication suivante est tout à fait satisfaisante :
+ "on applique H, ce qui engendre un sous-but d'énoncé  "exists y:A, R a y",  
+   ce sous-but est résolu par la règle d'introduction du quantificateur 
+   existentiel, en  donnant b comme témoin"
+
+   si on est sûr de soi, on peut aussi répondre par une suite d'étapes :
+
+   apply H.
+
+  
+  .... même contexte que ci-dessus
+  ------------------
+  exists y: A, R a y
+
+   exists b;assumption.
+   Qed.
+
+
+Des questions porteront sur l'arithmétique de Peano .
+
+  Le fichier Given.v  ci-joint contient --- outre les définitions et
+  lemmes vus en projet --- une définition de la notion de parité (Even) et 
+  d'imparité (Odd), plus quelques lemmes (certains ont une preuve incomplète,
+  afin de vous permettre de vous exercer sur cette formalisation).
+
+  On vous demandera d'expliquer comment prouver des résultats simples 
+  (qui n'apparaissent pas dans le fichier joint) sur la parité ou l'imparité.
+ 
+
+
+
+
+
