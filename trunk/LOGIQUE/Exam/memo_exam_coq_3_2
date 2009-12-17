@@ -1,0 +1,78 @@
+Lemma max_min : forall n p, max n p = p -> min n p = n.
+
+                                                       ------------------ trivial. 
+                                                       Γ, n = p |-- n = p
+------------------- trivial.                           ------------------ symmetry.
+Γ, p = p |-- n = n                                     Γ, n = p |-- p = n
+--------------------- intro eP.                        --------------------- intro eNP.  
+Γ |-- p = p -> n = n                                   Γ |-- n = p -> p = n
+---------------------------------------------------------------------------- destruct (Le n p).
+Γ: {n, p} |-- (if Le n p then p else n) = p -> (if Le n p then n else p) = n
+---------------------------------------------------------------------------- intros n p; unfold min, max
+|-- forall n p, max n p = p -> min n p = n
+
+==================================================================================
+
+Lemma max_min' : forall n p, max n p = p -> min n p = n.
+
+                                        ------------------------------------- trivial.
+                                        Γ, n = p, (Le n p = false) |-- n = p
+                                        ------------------------------------- symmetry. 
+                                        Γ, n = p, (Le n p = false) |-- p = n
+--------------------------- trivial.    ------------------------------------------------------------ rewrite Hf in H. 
+Γ, Le n p = true |-- n = n              Γ, (if Le n p then p else n) = p, (Le n p = false) |-- p = n
+---------------------------- intro Ht.  ------------------------------------------------------------- intro Hf.
+Γ |-- Le n p = true -> n = n            Γ |-- Le n p = false -> p = n
+----------------------------------------------------------------------------- case_eq (Le n p).
+Γ :{ n, p, (if Le n p then p else n) = p } |--  (if Le n p then n else p) = n
+----------------------------------------------------------------------------- unfold min, max; intros n p H. 
+|-- forall n p, max n p = p -> min n p = n
+
+
+==================================================================================
+
+Lemma max_min'' : forall n p, max n p = p -> min n p = n.
+
+                                                        ------------------ trivial. 
+                                                        Γ, n = p |-- n = p
+------------------- trivial.                            ------------------ symmetry.
+Γ, p = p |-- n = n                                      Γ, n = p |-- p = n
+--------------------- intro eP.                         --------------------- intro eNP.  
+Γ |-- p = p -> n = n                                    Γ |-- n = p -> p = n
+----------------------------------------------------------------------------- destruct (Le n p).
+Γ |--  (if Le n p then p else n) = p -> (if Le n p then n else p) = n
+----------------------------------------------------------------------------- generalize H; clear H.
+Γ :{ n, p, (if Le n p then p else n) = p } |--  (if Le n p then n else p) = n
+----------------------------------------------------------------------------- unfold min, max; intros n p H.
+|-- forall n p, max n p = p -> min n p = n
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
