@@ -6,8 +6,11 @@ First, let us look at some example : *)
 
 Lemma P3Q : forall P Q : Prop, (((P->Q)->Q)->Q) -> P -> Q.
 Proof.
- intros P Q H p; apply H. 
- intro H0;apply H0;assumption. 
+
+ intros P Q H p.
+ apply H. 
+ intro H0;apply
+ H0;assumption. 
 Qed.
 
 Lemma triple_neg : forall P:Prop, ~~~P -> ~P.
@@ -51,6 +54,13 @@ Proof.
  intros P Q [p' | q'] [p q];[destruct p'|destruct q'];assumption.
 Qed.
 
+Lemma test : forall (A:Type) (P:A->Prop) (x:A), (forall x:A, P x) -> P x.
+Proof.
+intros A P x.
+intro H.
+apply H.
+
+
 Lemma all_perm :
  forall (A:Type) (P:A -> A -> Prop),
    (forall x y:A, P x y) -> 
@@ -76,21 +86,22 @@ Lemma not_ex_forall_not : forall (A: Type) (P: A -> Prop),
                       ~(exists x, P x) <-> forall x, ~ P x.
 Proof.
  intros A P;split.
- intros H x Hx; destruct H;exists x;assumption.
+ intros H x Hx. destruct H. exists x;assumption.
  intros H [x Hx].
- destruct (H x);assumption.
+ destruct (H x). assumption.
 Qed.
 
 Lemma ex_not_forall_not : forall (A: Type) (P: A -> Prop),
                        (exists x, P x) -> ~ (forall x, ~ P x).
 Proof.
  intros A P [x Hx] H.
- destruct (H x);assumption.
+ destruct (H x).
+ assumption.
 Qed.
 
 Lemma diff_sym : forall (A:Type) (a b : A), a <> b -> b <> a.
 Proof.
- intros A a b H e;destruct H.
+ intros A a b H e . destruct H.
  symmetry;assumption.
 Qed.
 
@@ -99,7 +110,7 @@ Lemma fun_diff :  forall (A B:Type) (f : A -> B) (a b : A),
                        f a <> f b -> a <> b.
 Proof.
  intros A B f a b H e.
- destruct H;rewrite e;reflexivity.
+ destruct H. rewrite e. reflexivity.
 Qed.
 
 (**  this exercise deals with five equivalent characterizations of 
@@ -126,11 +137,13 @@ Definition Not_forall_not_exists : Prop :=
 
 Lemma  Exm_Double_neg : Exm -> Double_neg.
 Proof.
- unfold Double_neg;intros H P.
+ unfold Double_neg.
+ intros H P.
  destruct (H P) as [p | p'].
  intro;assumption.
- intro H1;destruct H1;assumption.
+ intro H1. destruct H1. assumption.
 Qed.
+
 
 Lemma Double_neg_Exm :  Double_neg -> Exm.
 Proof.
@@ -161,7 +174,7 @@ Qed.
 
 Lemma Classical_impl_Exm : Classical_impl -> Exm.
 Proof.
- intros H P;red in H.
+ intros H P. red in H.
  destruct (H P P) as [p | p'].
  auto.
  right;assumption.
@@ -171,7 +184,10 @@ Qed.
  
 Lemma Exm_Classical_impl : Exm -> Classical_impl.
 Proof.
+
+
  intros H P Q H0.
+ unfold Exm in H.
  destruct (H P) as [p | p'].
  right;auto.
  auto.
@@ -181,9 +197,11 @@ Qed.
 Lemma Not_forall_not_exists_Double_neg :  Not_forall_not_exists -> Double_neg.
 Proof.
  intros H P;red in H.
- intro H0;destruct (H nat (fun n => P)).
- intro H1; destruct H0.
- apply H1;exact 0.
+
+
+ intro H0;destruct (H nat (fun n => P)) as [x Hx].
+ intro H1. destruct H0.
+ apply H1. exact 0.
  assumption.
 Qed.
 
@@ -191,9 +209,11 @@ Qed.
 Lemma Exm_Not_forall_not_exists: Exm -> Not_forall_not_exists.
 Proof.
  intros H A P H0.
- destruct (H (ex  P));auto.
+ destruct (H (ex  P)).
+
+auto.
  destruct H0;intros x Hx.
- destruct H1;exists x;assumption.
+ destruct H1. exists x. assumption.
 Qed.
 
 
