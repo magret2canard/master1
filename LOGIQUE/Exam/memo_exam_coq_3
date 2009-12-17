@@ -1,0 +1,119 @@
+Fixpoint Le (n p:nat) : bool :=
+  match n, p with 0,_ => true
+                | S m, S q => Le m q
+                | _, _  => false
+  end.
+
+Definition max n p := if Le n p then p else n.
+Definition min n p := if Le n p then n else p.
+
+Fixpoint sum (n:nat) : nat :=
+  match  n with 0 => 0 
+              | S p => n + sum p
+  end.
+
+Fixpoint length {A:Type}(l: list A): nat :=
+ match l with nil => 0
+            | a::l' => S (length l')
+ end.
+
+Fixpoint app (A:Type)(l l':list A) : list A:=
+ match l with nil => l'
+            | a::l1  => a::(app _ l1 l')
+ end.
+Implicit Arguments app [A].
+
+
+Notation "l ++ l'" := (app  l l') : list_scope.
+
+
+Check app (1::2::3::nil) (4::5::6::nil).
+Check fun (A:Type)(l:list A)=> app l l.
+
+Fixpoint rev {A:Type}(l:list A) :=
+ match l with nil => nil
+            | (a::l') => rev l' ++ (a::nil)
+end.
+
+==================================================================================
+
+Le_n : forall n, Le n n = true.
+
+----------------- trivial       ------------------------------------- assumption. 
+|-- true = true                 IHn:  Le n n = true |-- Le n n = true
+----------------- simpl.        ---------------------------------------------- simpl.
+|-- Le 0 0 = true               IHn:  Le n n = true |-- Le (S n) (S n) = true
+------------------------------------------------------------------------------ induction n.
+|-- forall n, Le n n = true
+
+
+==================================================================================
+
+Lemma max_n : forall n, max n n = n
+
+
+----------- trivial.
+n |-- n = n
+------------------------------------ rewrite Le_n.
+n |-- (if Le n n then n else n) = n   
+------------------------------------ intro n; unfold max.
+|-- forall n, max n n = n
+
+
+==================================================================================
+
+Lemma length_app : forall A (l l':list A), length (l ++ l') = length l + length l'.
+
+*IHl: length (l ++ l') = length l + length l'
+
+
+														  ---------------------------------------------------------------- trivial.
+	 													  Γ, IHl* |-- S (length l + length l') = S (length l + length l')
+--------------------------- trivial.                      ---------------------------------------------------------------- rewrite IHl.
+Γ |-- length l' = length l'                               Γ, IHl* |-- S (length (l ++ l')) = S (length l + length l')
+------------------------------------------------- simpl.  --------------------------------------------------------------- simpl.
+Γ |-- length (nil ++ l') = length nil + length l'         Γ, IHl* |-- (length ((a::l) ++ l') = length (a::l) + length l')
+------------------------------------------------------------------------------------------------------------------------- induction l. 
+Γ :{A, l, l'} |-- length (l ++ l') = length l + length l'
+------------------------------------------------------------------- intros A l l'.
+|-- forall A (l l':list A), length (l ++ l') = length l + length l'
+
+
+==================================================================================
+
+Lemma length_rev : forall A (l:list A), length (rev l) = length l.
+
+                                                   --------------------------------------------------------------------- trivial.
+												   Γ, IHl: (length (rev l) = length l) |-- S (length l)  =  S (length l)
+                                                   --------------------------------------------------------------------- simpl.
+												   Γ, IHl: (length (rev l) = length l) |-- length 1 + l  =  S (length l)
+                                                   --------------------------------------------------------------------- rewrite plus_comm. 
+ 											       Γ, IHl: (length (rev l) = length l) |-- length l + 1  =  S (length l)
+                                                   ------------------------------------------------------------------------------------ simpl.
+												   Γ, IHl: (length (rev l) = length l) |-- length l + length (a::nil)  =  S (length l)
+                                                   ----------------------------------------------------------------------------------------- rewrite IHl.
+                                                   Γ, IHl: (length (rev l) = length l) |-- length (rev l) + length (a::nil)  =  S (length l)
+----------- trivial.                               ----------------------------------------------------------------------------------------- rewrite length_app.
+Γ |-- 0 = 0                                        Γ, IHl: (length (rev l) = length l) |-- length (rev l ++ a::nil) =  S (length l)
+------------------------------------ simpl.        --------------------------------------------------------------------------------- simpl.
+Γ |-- length (rev nil) = length nil                Γ, IHl: (length (rev l) = length l) |-- length (rev (a::l)) = length (a::l)
+------------------------------------------------------------------------------------------------------------------------------ induction l.
+Γ :{A, l} |-- length (rev l) = length l                  
+--------------------------------------------------------------------------------------------------- intros A l. 
+|-- forall A (l:list A), length (rev l) = length l
+
+
+==================================================================================
+
+Lemma app_assoc : forall (A:Type) (l l1 l2:list A), (l++l1)++l2 = l++(l1++l2).
+
+*IHl: forall l1 l2:list A, (l++l1)++l2 = l++(l1++l2)
+               												      -------------------------------------------------------- trivial.
+                                                                  A, IHl*, l1, l2 |-- (a::l)++(l1++l2) = (a::l)++(l1++l2)
+------------------------------------------ trivial.               -------------------------------------------------------- rewrite IHl.
+A |-- forall l1 l2:list A, l1++l2 = l1++l2                        A, IHl*, l1, l2 |-- ((a::l)++l1)++l2 = (a::l)++(l1++l2)
+-------------------------------------------------------- simpl.   -------------------------------------------------------------------- intros l1 l2. 
+A |-- forall l1 l2:list A, (nil++l1)++l2 = nil++(l1++l2)          A, IHl* |-- forall l1 l2:list A, ((a::l)++l1)++l2 = (a::l)++(l1++l2)
+------------------------------------------------------------------------------------------------------------------------------------------ induction l. 
+|-- forall (A:Type) (l l1 l2:list A), (l++l1)++l2 = l++(l1++l2)
+

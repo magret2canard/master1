@@ -1,0 +1,156 @@
+Variables (U V W : Type).
+
+Variable g : V -> W.
+Variable f : U -> V.
+
+Definition injective : Prop := forall x y:U, f x = f y -> x = y.
+Definition surjective : Prop := forall v : V, exists u:U, f u = v.
+
+==================================================================================
+
+Lemma injective' : injective -> forall x y:U, x <> y -> f x <> f y.
+
+------------------------------------------------------------------ assumption.
+(forall x y:U, f x = f y -> x = y), x, y, f x = f y |-- f x = f y
+-------------------------------------------------------------------------- apply Hi.
+(forall x y:U, f x = f y -> x = y), x, y, f x = f y |-- x = y
+---------------------------------------------------------------------- destruct nXY.
+(forall x y:U, f x = f y -> x = y), x, y, x <> y, f x = f y |-- False
+--------------------------------------------------------------------------- intros x y nXY FxFy.
+(forall x y:U, f x = f y -> x = y) |-- (forall x y:U, x <> y -> f x <> f y)
+--------------------------------------------------------------------------- intro Hi.
+|-- injective -> forall x y:U, x <> y -> f x <> f y
+
+==================================================================================
+
+Definition compose := fun u : U => g (f u).
+
+Implicit Arguments compose [U V W].
+Implicit Arguments injective [U V].
+Implicit Arguments surjective [U V].
+
+
+Lemma injective_comp : forall U V W (f:U->V)(g : V -> W), injective (compose g f) -> injective f.
+
+-------------------------------------------------------------------------------------------------------------- reflexivity.
+Γ, (forall x y:U,  g (f x) = g (f y) -> x = y), f x = f y, (g (f x) = g (f y) -> x = y) |-- g (f y) = g (f y)
+-------------------------------------------------------------------------------------------------------------- rewrite FxFy.
+Γ, (forall x y:U,  g (f x) = g (f y) -> x = y), f x = f y, (g (f x) = g (f y) -> x = y) |-- g (f x) = g (f y)
+-------------------------------------------------------------------------------------------------------------- apply H0.
+Γ, (forall x y:U,  g (f x) = g (f y) -> x = y), f x = f y, (g (f x) = g (f y) -> x = y) |-- x = y
+---------------------------------------------------------------------------------------------------- intro H0.
+Γ, (forall x y:U,  g (f x) = g (f y) -> x = y), f x = f y  |-- (g (f x) = g (f y) -> x = y) -> x = y
+---------------------------------------------------------------------------------------------------- generalize (H x y).
+Γ, (forall x y:U,  g (f x) = g (f y) -> x = y), f x = f y  |-- x = y
+---------------------------------------------------------------------------------- unfold compose in H.
+Γ, (forall x y:U, compose g f x = compose g f y -> x = y),  f x = f y  |-- x = y
+---------------------------------------------------------------------------------- unfold injective in H.
+Γ, injective (compose g f), x, y, f x = f y  |-- x = y
+----------------------------------------------------------------- intros x y FxFy.
+Γ, injective (compose g f)  |-- forall x y:U, f x = f y -> x = y
+----------------------------------------------------------------- unfold injective.
+Γ, injective (compose g f)  |-- injective f
+-------------------------------------------------------------- intro H.
+Γ :{ U, V, W, f, g} |-- injective (compose g f) -> injective f
+----------------------------------------------------------------------------- intros U V W f g.
+|-- forall U V W (f: U->V)(g: V->W), injective (compose g f) -> injective f
+
+
+=========================
+
+
+Lemma surjective_comp : forall U V W (f:U->V)(g : V -> W), surjective (compose g f) -> surjective g.
+
+
+
+--------------------------------------------------------------------------------- assumption.
+Γ, (forall v : W, exists u:U,  g (f u) = v), v:W, u:U, g(f u) = v |-- g (f u) = v
+----------------------------------------------------------------------------------------- exists (f u). 
+Γ, (forall v : W, exists u:U,  g (f u) = v), v:W, u:U, g(f u) = v |-- exists u:V, g u = v
+------------------------------------------------------------------------------------------ destruct (H v) as [u Hu].
+Γ, (forall v : W, exists u:U,  g (f u) = v), v:W |-- exists u:V, g u = v
+--------------------------------------------------------------------------------- intro v.
+Γ, (forall v : W, exists u:U,  g (f u) = v) |-- forall v : W, exists u:V, g u = v
+---------------------------------------------------------------------------------  unfold surjective; unfold compose; intro H.
+Γ :{ U, V, W, f, g} |-- surjective (compose g f) -> surjective g
+---------------------------------------------------------------------------- intros U V W f g
+|-- forall U V W (f:U->V)(g: V->W), surjective (compose g f) -> surjective g
+
+
+=========================
+
+Lemma comp_injective : forall U V W (f:U->V)(g : V -> W), injective f -> injective g -> injective (compose g f).
+
+------------------------------------------------------------------------ assumption.
+Γ, x:U, y:U, g(f x) = g (f y), (f x = f y -> x = y) |--  g(f x) = g(f y)
+------------------------------------------------------------------------ apply Hg.
+Γ, x:U, y:U, g(f x) = g (f y), (f x = f y -> x = y) |--  f x = f y
+------------------------------------------------------------------- apply eF.
+Γ, x:U, y:U, g(f x) = g (f y), (f x = f y -> x = y) |--  x = y
+---------------------------------------------------------------- intro eF. 
+Γ, x:U, y:U, g(f x) = g (f y) |-- (f x = f y -> x = y) -> x = y
+----------------------------------------------------------------------------------------------------------------------- generalize (Hf x y).
+Γ: { Γ, (forall x y:U, f x = f y -> x = y), (forall x y:U, g x = g y -> x = y)} , x:U, y:U, g(f x) = g (f y) |-- x = y
+------------------------------------------------------------------------------------------------------------------------ intros x y eGF.  
+Γ, (forall x y:U, f x = f y -> x = y), (forall x y:U, g x = g y -> x = y) |-- forall x y:U, g(f x) = g (f y) -> x = y
+--------------------------------------------------------------------------------------------------------------------- unfold injective; unfold compose; intros Hf Hg.
+Γ :{ U, V, W, f, g} |-- injective f -> injective g -> injective (compose g f)
+--------------------------------------------------------------------------------------------- intros U V W f g. 
+|-- forall U V W (f:U->V)(g : V -> W), injective f -> injective g -> injective (compose g f)
+
+==================================================================================
+unfold injective(*) : unfold injective in the context and on the goal.
+
+Fixpoint iterate (A:Type)(f:A->A)(n:nat) {struct n} : A -> A :=
+ match n with  0 => (fun a => a)
+            |  S p => fun a => f (iterate _ f p a) 
+ end.
+
+Lemma iterate_inj : forall U (f:U->U) , injective f -> forall n: nat, injective   (iterate _ f n).
+
+
+------------------------------------------------------------------------------------------ assumption. 
+Γ, (iterate U f (S n) x = iterate U f (S n) y) |-- f(iterate U f n x) = f(iterate U f n y)
+------------------------------------------------------------------------------------------ apply H.
+Γ, (iterate U f (S n) x = iterate U f (S n) y) |-- iterate U f n x = iterate U f n y 
+----------------------------------------------------------------------------------------------------------------------------------------- apply IHn.
+Γ:{ Γ, x:U, y:U, IHn:(forall x y:U, iterate U f n x = iterate U f n y -> x = y)}, (iterate U f (S n) x = iterate U f (S n) y) |-- x = y
+----------------------------------------------------------------------------------------------------------------------------------------- unfold injective(*); intros x y eUf.
+Γ:{ injective f}, IHn: injective (iterate U f n) |--  injective (iterate U f (S n))
+----------------------------------------------------------------------------------- induction n. (2eme partie)
+.
+.
+.
+------------------------------------------ assumption
+Γ, injective f, x:U, y:U, x = y |-- x = y
+-------------------------------------------------- intros x y eXY.
+Γ, injective f |-- (forall x y:U, x = y -> x = y)
+-------------------------------------------------- unfold injective.
+Γ, injective f |--  injective (fun a:U => a)                         
+--------------------------------------------- simpl.
+Γ, injective f |--  injective (iterate U f 0)  
+--------------------------------------------------------------------- induction n. (1ere partie)
+Γ: {U, f}, injective f |--  forall n: nat, injective (iterate _ f n)
+-------------------------------------------------------------------------------- intros U f H.
+|-- forall U (f:U->U) , injective f -> forall n: nat, injective (iterate _ f n)
+
+
+
+==================================================================================
+
+Fin de la feuille assez simple ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
