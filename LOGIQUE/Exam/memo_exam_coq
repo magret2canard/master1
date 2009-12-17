@@ -135,3 +135,141 @@ x, P x \/ Q x |-- (exists x, P x) \/ (exists x, Q x)
 |-- (exists x:A, P x \/ Q x) -> (exists x, P x) \/ (exists x, Q x)     
 -------------------------------------------------------------------- split.	(1ere partie)		
 |-- (exists x:A, P x \/ Q x) <-> (exists x, P x) \/ (exists x, Q x).
+
+==================================================================================
+
+Lemma exists_imp_dist : (exists x: A, P x -> Q x) -> (forall x:A, P x) -> exists x:A, Q x.
+
+------------------------------------------ apply H0.
+x, P x -> Q x , (forall x:A, P x) |-- P x
+------------------------------------------ apply Hx.
+x, P x -> Q x , (forall x:A, P x) |-- Q x
+----------------------------------------------------- exists x.
+x, P x -> Q x , (forall x:A, P x) |-- exists x0:A, Q x0
+----------------------------------------------------------------- destruct H as [x Hx].
+(exists x: A, P x -> Q x), (forall x:A, P x) |-- exists x:A, Q x
+---------------------------------------------------------------------- intros H H0. 
+|-- (exists x: A, P x -> Q x) -> (forall x:A, P x) -> exists x:A, Q x
+
+==================================================================================
+
+Lemma not_empty_forall_exists : forall a:A, (forall x:A, P x) -> exists x:A, P x.
+
+----------------------------- apply H.
+a, (forall x:A, P x) |-- P a
+----------------------------------------- exists a.
+a, (forall x:A, P x) |-- exists x:A, P x
+----------------------------------------------------- intros a H. 
+|-- forall a:A, (forall x:A, P x) -> exists x:A, P x
+
+==================================================================================
+
+Lemma not_ex_forall_not : ~ (exists x:A, P x) <-> forall x:A, ~P x.
+
+
+----------------------------------- assumption.
+(forall x:A, ~P x), x, P x |-- P x
+-------------------------------------- destruct (H x).
+(forall x:A, ~P x), x, P x |-- False
+------------------------------------------------ destruct H0 as [x Hx].
+(forall x:A, ~P x), (exists x:A, P x) |-- False
+------------------------------------------------ intro H0.
+forall x:A, ~P x |-- ~ (exists x:A, P x)
+---------------------------------------- intro H.
+|-- forall x:A, ~P x -> ~ (exists x:A, P x) 
+--------------------------------------------- split. (2eme partie)
+
+.
+.
+.
+
+-------------- assumption.
+x, P x |-- P x
+----------------------------- exists x.
+x, P x |--(exists x0:A, P x0)
+--------------------------------------- destruct H.
+~ (exists x:A, P x), x, P x |-- False.
+----------------------------------------- intros x Hx.
+~ (exists x:A, P x) |-- forall x:A, ~P x
+-------------------------------------------- intro H.
+|-- ~ (exists x:A, P x) -> forall x:A, ~P x
+--------------------------------------------- split. (1ere partie)
+|-- ~ (exists x:A, P x) <-> forall x:A, ~P x
+
+
+
+==================================================================================
+
+Lemma singleton_forall_eq : (exists x:A, forall y:A, x = y) -> forall z t:A, z = t.
+
+
+-------------------------------------- apply Hx.
+x, (forall y:A, x = y), z, t |-- x = z
+-------------------------------------- symmetry.  -------------------------------------- apply Hx. 
+x, (forall y:A, x = y), z, t |-- z = x            x, (forall y:A, x = y), z, t |-- x = t
+------------------------------------------------------------------------------------ transitivity x.
+x, (forall y:A, x = y), z, t |-- z = t
+----------------------------------------------- intros z t.
+x, (forall y:A, x = y) |-- forall z t:A, z = t
+-------------------------------------------------------- destruct H as [x Hx]
+(exists x:A, forall y:A, x = y) |-- forall z t:A, z = t
+----------------------------------------------------------- intro H.
+|-- (exists x:A, forall y:A, x = y) -> forall z t:A, z = t
+
+
+==================================================================================
+Variables  (f g : A -> A).
+
+Hypothesis f_g_perm : forall x:A, f (g x) = g (f x).
+
+Hypothesis g_idempotent : forall x : A, g (g x) = g x.
+Hypothesis f_idempotent : forall x : A, f (f x) = f x.
+
+
+1) Lemma L : forall z, g (f (g (f (g (f z))))) = f (g z).
+
+--------------------------------------------------------------- reflexivity.
+f_g_perm, g_idempotent, f_idempotent, z |--  g (f z) = g (g z)
+--------------------------------------------------------------- rewrite f_g_perm. (2eme possibilité)
+f_g_perm, g_idempotent, f_idempotent, z |--  g (f z) = f (g z)
+
+.
+.
+.
+
+--------------------------------------------------------------- apply f_g_perm.
+f_g_perm, g_idempotent, f_idempotent, z |--  f (g z) = g (f z)
+--------------------------------------------------------------- symmetry. (1ère possibilité)
+f_g_perm, g_idempotent, f_idempotent, z |--  g (f z) = f (g z)
+------------------------------------------------------------------- rewrite f_idempotent.
+f_g_perm, g_idempotent, f_idempotent, z |--  g (f (f z)) = f (g z)
+----------------------------------------------------------------------- rewrite g_idempotent.
+f_g_perm, g_idempotent, f_idempotent, z |--  g (g (f (f z))) = f (g z)
+----------------------------------------------------------------------- rewrite f_g_perm.
+f_g_perm, g_idempotent, f_idempotent, z |--  g (f (g (f z))) = f (g z)
+--------------------------------------------------------------------------- rewrite f_idempotent.
+f_g_perm, g_idempotent, f_idempotent, z |--  g (f (f (g (f z)))) = f (g z)
+------------------------------------------------------------------------------ rewrite g_idempotent.
+f_g_perm, g_idempotent, f_idempotent, z |--  g (g (f (f (g (f z))))) = f (g z)
+------------------------------------------------------------------------------ rewrite f_g_perm.
+f_g_perm, g_idempotent, f_idempotent, z |--  g (f (g (f (g (f z))))) = f (g z)
+------------------------------------------------------------------------------------- intro z.
+f_g_perm, g_idempotent, f_idempotent |-- forall z, g (f (g (f (g (f z))))) = f (g z)
+
+============
+
+2) Lemma L':  (forall x : A, ~ x = f x) -> ~ (exists y : A, True).
+
+-------------------------------------------------------------- reflexivity.
+f_idempotent, (forall x : A, x <> f x), y, True |-- f y = f y
+----------------------------------------------------------------- rewrite f_idempotent.
+f_idempotent, (forall x : A, x <> f x), y, True |-- f y = f (f y)
+----------------------------------------------------------------- destruct (H (f y)).
+f_idempotent, (forall x : A, x <> f x), y, True |-- False
+---------------------------------------------------------------------- destruct H0 as [y T].
+f_idempotent, (forall x : A, x <> f x), (exists y : A, True) |-- False
+---------------------------------------------------------------------- intro H0.
+f_idempotent, (forall x : A, ~ x = f x) |-- ~ (exists y : A, True)
+-------------------------------------------------------------------- intro H.
+f_idempotent |-- (forall x : A, ~ x = f x) -> ~ (exists y : A, True)
+

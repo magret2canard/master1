@@ -92,7 +92,6 @@ Qed.
 
  Lemma weak_peirce : ((((P -> Q) -> P) -> P) -> Q) -> Q.
  Proof.
-tauto.
   intro H;apply H.
   intro H0.
   apply H0.
@@ -269,6 +268,19 @@ Qed.
 Lemma L':  (forall x : A, ~ x = f x) ->
            ~ (exists y : A, True).
 Proof.
+ intros H H0.
+ destruct H0 as [y T].
+ destruct (H (f y)).
+ symmetry.
+ rewrite f_idempotent.
+ reflexivity
+ destruct T.
+ symmetry.
+ apply H.
+ apply (H (f y)).
+ apply f.
+
+
  intros H [y _].
  destruct (H (f y)).
  symmetry;auto.
